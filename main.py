@@ -18,11 +18,11 @@ header = """
           font: 16px sans-serif;
           border-radius:10px;
       }
-      textarea{
+      textarea{{
           margin: 10px o;
-          width: 540px;
-          height: 120px;
-      }
+          width: 1000px;
+          height: 300px;
+      }}
     </style>
   </head>
   <body>
@@ -32,8 +32,8 @@ form = """
       <label for="rot">Rotate by:
         <input id="rot" name="rot" type="text" value="0" />
       </label>
-      <textarea id="text" name="text">
-      </textarea>
+      <br>
+      <textarea id="text" name="text">{0}</textarea>
       <input type="submit" value="Submit Query" />
     </form>
 """
@@ -45,7 +45,7 @@ footer = """
 @app.route("/")
 def index():
 
-  return header + form + footer
+  return header + form.format("") + footer
 
 @app.route("/encrypt", methods=["POST"])
 def encrypt():
@@ -54,6 +54,6 @@ def encrypt():
     text_rotated = rotate_string(text,rotate)
 
     
-    return header + "<h1>" + text_rotated + "</h1>" + footer
+    return header + form.format(text_rotated) + footer
 
 app.run()
